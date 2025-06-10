@@ -14,6 +14,27 @@ from scoreboard import Scoreboard
 
 
 class AlienInvasion:
+	def __init__(self):
+
+		# def _create_fleet(self):
+		# 	alien = Alien(self)
+		# 	self.aliens.add(alien)
+		
+		self.bullets = pygame.sprite.Group() 
+		pygame.init()
+		self.settings = Settings()
+		self.screen = pygame.display.set_mode(
+			(self.settings.screen_width, self.settings.screen_height))
+
+		pygame.display.set_caption('Alien Invasion')
+		self.stats = GameStats(self)
+		self.sb = Scoreboard(self)
+		self.game_active = True
+		self.ship = Ship(self)
+		self.bullets = pygame.sprite.Group()
+		self.aliens = pygame.sprite.Group()
+		self._create_fleet()
+
 
 	def _check_aliens_bottom(self):
 		for alien in self.aliens.sprites():
@@ -29,9 +50,11 @@ class AlienInvasion:
 		new_alien.rect.y = y_pos
 		self.aliens.add(new_alien)
 
+
 	def _fire_bullet(self):
 		new_bullet = Bullet(self)
 		self.bullets.add(new_bullet)
+
 
 	def _create_fleet(self):
 		alien = Alien(self)
@@ -46,6 +69,7 @@ class AlienInvasion:
 			current_x = alien_width
 			current_y += 2 * alien_height
 
+
 	def _ship_hit(self):
 		if self.stats.ships_left > 0:
 			self.stats.ships_left -= 1
@@ -57,36 +81,6 @@ class AlienInvasion:
 			sleep(0.5)
 		else:
 			self.game_active = False
-
-
-	def __init__(self):
-
-		# def _create_fleet(self):
-		# 	alien = Alien(self)
-		# 	self.aliens.add(alien)
-		
-		self.bullets = pygame.sprite.Group() 
-		pygame.init()
-		self.settings = Settings()
-		self.screen = pygame.display.set_mode(
-			(self.settings.screen_width, self.settings.screen_height))
-		pygame.display.set_caption('Alien Invasion')
-		self.stats = GameStats(self)
-
-		self.sb = Scoreboard(self)
-		self.game_active = True
-
-		self.ship = Ship(self)
-		self.bullets = pygame.sprite.Group()
-		self.aliens = pygame.sprite.Group()
-
-
-		self._create_fleet()
-
-
-
-
-		
 
 
 	def _update_aliens(self):
@@ -105,11 +99,13 @@ class AlienInvasion:
 				self._change_fleet_direction()
 				break
 			
+
 	def _change_fleet_direction(self):
 		for alien in self.aliens.sprites():
 			alien.rect.y += self.settings.fleet_drop_speed
 			self.settings.fleet_direction *= -1
 	
+
 	def _update_screen(self):
 		if not self.game_active:
 			self.stats.reset_stats()
@@ -121,11 +117,10 @@ class AlienInvasion:
 		
 		pygame.display.flip()
 
-	
 
 	def run_game(self):
 
-		while True:	
+		while True:
 			if self.game_active:
 				self._update_screen()
 				self._update_aliens()
@@ -150,15 +145,6 @@ class AlienInvasion:
 					self.bullets.empty()
 					self._create_fleet()
 		
-			
-
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
 	ai = AlienInvasion()
