@@ -28,3 +28,10 @@ class Alien(Sprite):
 	def update(self):
 		self.x += self.settings.alien_speed * self.settings.fleet_direction
 		self.rect.x = self.x 
+
+
+	def move_alien_off_the_wall(self):
+		if self.x <= 10:
+			self.x = 10
+		elif self.x > (self.settings.screen_width - self.rect.width - 10):
+			self.x -= 10

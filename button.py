@@ -5,8 +5,8 @@ class Button:
 
 
 	def __init__(self, ai_game, msg):
-		self.screen = ai_game
-		self.screen_rect = self.screen
+		self.screen = ai_game.screen
+		self.screen_rect = self.screen.get_rect()
 
 		self.width, self.height = 200, 50
 		self.button_color = (0, 135, 0)
@@ -22,7 +22,7 @@ class Button:
 	def _prep_msg(self, msg):
 		self.msg_image = self.font.render(msg, True, self.text_color,
 			self.button_color)
-		self.msg.msg_image_rect.center = self.rect.center
+		self.msg_image_rect = self.msg_image.get_rect()
 		self.msg_image_rect.center = self.rect.center
 
 
